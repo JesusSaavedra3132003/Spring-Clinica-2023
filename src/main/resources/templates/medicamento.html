@@ -106,6 +106,8 @@
 	</style>
 </head>
 
+	<div th:replace="~{plantilla/UITemplate :: cabecera}"></div>	
+	
 <body>
 	<div class="container">
 
@@ -157,7 +159,7 @@
 						<h4 class="modal-title text-white">Medicamento</h4>
 					</div>
 					<div class="modal-body">
-						<form method="POST" id="idRegistra" action="grabar">
+						<form method="POST" id="idRegistra" th:action="@{grabar}">
 							<input type="text" value="0" name="codigo" id="idCodigo">
 							<div class="container">
 								<div class="row">
@@ -265,18 +267,33 @@
 			})
 
 		})
-		
+
 		//asignar evento click al botòn con id "btn-cerrar"
-		$(document).on("click", "#btn-cerrar",function(){
+		$(document).on("click", "#btn-cerrar", function () {
 			//resetear el formulario
 			$("#idRegistra").trigger("reset");
 			//resetear validacion
 			$("#idRegistra").data("bootstrapValidator").resetForm(true);
-			
+
 		})
 
+		//asignar evento click a los botones con clase "btn-eliminar"
+		$(document).on("click", ".btn-eliminar", function () {
+			var cod;
+			//almacenar el còdigo del medicamento segun el botòn eliminar que se seleccionò
+			cod = $(this).parents("tr").find("td")[0].innerHTML;
+			alertify.confirm("SISTEMA", "Seguro de eliminar!",
+				function () {
+					window.location="http://localhost:8092/medicamento/eliminar?codigo="+cod
 
-
+				},
+				function () {
+					alertify.error('Cancelado!')
+				}).
+				set('labels', {ok: 'Si', cancel: 'No'});
+		})
+		
+		
 		$('#tableMedicamentos').DataTable();
 		$(function () {
 			$('#usr1').datepicker({

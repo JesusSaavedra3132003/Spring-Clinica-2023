@@ -89,5 +89,16 @@ public class MedicamentoController {
 	{
 		return servicioMed.buscarPorID(cod);
 	}
+	
+	//Crear ruta o direccion URL para eliminar medicamento segùn còdigo
+	@RequestMapping("/eliminar")
+	public String eliminar(@RequestParam("codigo") Integer cod, RedirectAttributes redirect)
+	{
+		servicioMed.eliminarPorID(cod);
+		redirect.addFlashAttribute("MENSAJE", "Medicamento eliminado");
+		return "redirect:/medicamento/lista";
+	}
+	
+	
 
 }
