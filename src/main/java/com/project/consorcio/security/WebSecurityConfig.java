@@ -32,7 +32,7 @@ public class WebSecurityConfig {
 		http
 			.authorizeHttpRequests((requests) -> requests
 				.requestMatchers("/session/**","resources/**").permitAll() //hacer ajustes aqui, para que permita registrar y actualizar
-				.requestMatchers("/medicamento/**","/paciente/**","/requerimiento/**").authenticated()
+				.requestMatchers("/medicamento/**","/paciente/**","/requerimiento/**", "/reporte/**").authenticated()
 				
 			)
 			.formLogin((form) -> form
